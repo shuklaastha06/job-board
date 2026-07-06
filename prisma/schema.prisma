@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  password      String?
+  emailVerified DateTime?
+  image         String?
+  role          String    @default("APPLICANT") // 'APPLICANT' or 'RECRUITER'
+  
+  // Profile Fields - Stored as stringified JSON for complex structures
+  basicDetailsData     String?  // JSON string
+  educationData        String?  // JSON string
+  workExperienceData   String?  // JSON string
+  accomplishmentsData  String?  // JSON string
+  personalDetailsData  String?  // JSON string
+  socialLinksData      String?  // JSON string
+  about                String?
+  skills               String?  // Comma separated
+  profileResumeUrl     String?
+  aiResumeData         String?  // Generated Resume HTML/Markdown
+  
+  postedJobs    Job[]         @relation("RecruiterJobs")
+  applications  Application[]
+}
+
+model Job {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  company     String
+  location    String
+  salary      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  recruiterId String
+  recruiter   User     @relation("RecruiterJobs", fields: [recruiterId], references: [id])
+  
+  applications Application[]
+
+  @@index([title, description, company, location])
+}
+
+model Application {
+  id          String   @id @default(cuid())
+  jobId       String
+  applicantId String
+  resumeUrl   String
+  status      String   @default("PENDING") // 'PENDING', 'REVIEWED', 'ACCEPTED', 'REJECTED'
+  atsScore    Int?
+  rejectionReason String?
+  appliedAt   DateTime @default(now())
+
+  job       Job  @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  applicant User @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+
+  @@unique([jobId, applicantId])
+}

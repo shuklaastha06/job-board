@@ -1,0 +1,23 @@
+{
+  "/_not-found": "app/_not-found.js",
+  "/api/ai/generate-resume/route": "app/api/ai/generate-resume/route.js",
+  "/api/applications/[id]/status/route": "app/api/applications/[id]/status/route.js",
+  "/api/ai/generate-about/route": "app/api/ai/generate-about/route.js",
+  "/api/ai/generate-work/route": "app/api/ai/generate-work/route.js",
+  "/api/apply/route": "app/api/apply/route.js",
+  "/api/jobs/route": "app/api/jobs/route.js",
+  "/api/profile/update/route": "app/api/profile/update/route.js",
+  "/api/register/route": "app/api/register/route.js",
+  "/dashboard/jobs/[id]/page": "app/dashboard/jobs/[id]/page.js",
+  "/api/applications/[id]/update/route": "app/api/applications/[id]/update/route.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/api/upload/route": "app/api/upload/route.js",
+  "/introduction/page": "app/introduction/page.js",
+  "/jobs/page": "app/jobs/page.js",
+  "/jobs/[id]/page": "app/jobs/[id]/page.js",
+  "/dashboard/post-job/page": "app/dashboard/post-job/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/register/page": "app/register/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js"
+}
