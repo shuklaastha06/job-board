@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 // 3D Tilt Card Component
 function TiltCard({ children, delay = 0 }: { children: React.ReactNode, delay?: number }) {
-  const [style, setStyle] = useState({ transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)' });
+  const [style, setStyle] = useState<React.CSSProperties>({ transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)', transition: 'none' });
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -56,7 +56,7 @@ function TiltCard({ children, delay = 0 }: { children: React.ReactNode, delay?: 
         ...style, 
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? style.transform : 'perspective(1000px) translateY(50px)',
-        transition: isVisible && style.transform.includes('scale3d(1, 1, 1)') ? 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)' : style.transition
+        transition: isVisible && (style.transform || '').includes('scale3d(1, 1, 1)') ? 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)' : style.transition
       }}
     >
       {children}
